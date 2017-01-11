@@ -174,7 +174,13 @@ local dumper_mt = {
 	value = "-.inf"
       elseif value ~= value then
 	value = ".nan"
-      elseif itsa == "number" or itsa == "boolean" then
+      elseif itsa == "number" then
+        if math.floor(value) == value then
+          value = tostring (value)
+        else
+          value = string.format("%.15f", value)
+        end
+      elseif itsa == "boolean" then
         value = tostring (value)
       elseif itsa == "string" and string.find (value, "\n") then
         style = "LITERAL"
